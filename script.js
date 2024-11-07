@@ -16,18 +16,23 @@ var menuLinks = [
     {text: 'sign out', href: '/account/signout'},
   ]},
 ];
-const mainE1 = document.querySelector("main");
-const topMenuEl = document.querySelector("#top-menu");
+const mainEl = document.querySelector("main");
+const topMenuEl = document.getElementById("top-menu");
+console.log(topMenuEl);
 // 361.1 *****part 1
-const subMenuEl = document.querySelector("#sub-menu")
+const subMenuEl = document.getElementById("sub-menu")
 // // 361.3 *****part 4
-const topMenuLinks = document.querySelectorAll('#top-menu a');
+const topMenuLinks = topMenuEl.getElementsByTagName('a');
+// topMenuEl.querySelector('a')
+// topMenuEl.querySelectorAll('a')
+// document.links;
+// document.querySelectorAll('#top-menu a');
 console.log(topMenuLinks);
 
 // 361.1 *****part 1
-mainE1.style.backgroundColor = "var(--main-bg)";
-mainE1.innerHTML = "<h1>DOM Manipulation</h1>"
-mainE1.classList.add("flex-ctr");
+mainEl.style.backgroundColor = "var(--main-bg)";
+mainEl.innerHTML = "<h1>DOM Manipulation</h1>"
+mainEl.classList.add("flex-ctr");
 
 
 // 316.1 *****part 2
@@ -43,32 +48,19 @@ topMenuEl.addEventListener("click", clickedOn)
 //   console.log(link);
 // }
 document.addEventListener('DOMContentLoaded', () => {
+  for(i=0; i<topMenuLinks.length; i++){
+    const clicked = topMenuLinks[i];
+      // console.log(topMenuLinks[i]);
+    clicked.addEventListener('click', function(){
+      menuLinks = topMenuLinks;
+      for (i=0; i<topMenuLinks.length; i++){
+        menuLinks[i].classList.remove('active');
+      }
+      this.classList.toggle('active');
+  })
+}
+});
 
-  for(i=0; i<subMenuEl.length; i++){
-    const clicked = subMenuEl[i];
-      // console.log(topMenuLinks[i]);
-    clicked.addEventListener('click', function(){
-      menuLinks = document.querySelectorAll('a');
-      for (i=0; i<menuLinks.length; i++){
-        menuLinks[i].classList.remove('active');
-      }
-      this.classList.toggle('active');
-  })
-}
-});
-document.addEventListener('DOMContentLoaded', () => {
-  for(i=0; i<subMenuEl.length; i++){
-    const clicked = subMenuEl[i];
-      // console.log(topMenuLinks[i]);
-    clicked.addEventListener('click', function(){
-      menuLinks = document.querySelectorAll('a');
-      for (i=0; i<menuLinks.length; i++){
-        menuLinks[i].classList.remove('active');
-      }
-      this.classList.toggle('active');
-  })
-}
-});
 // console.log(topMenuLinks.class);
 function clickedOn(evt){
 
@@ -89,14 +81,12 @@ function clickedOn(evt){
 //  e.target.className = "active";
 // }
 // console.log(topMenuLinks.target);
-
-// 361.1 *****part 3
-menuLinks.forEach(link => {
-  const newEl = document.createElement("a");
-  newEl.href = link.href;
-  newEl.textContent = link.text;
-  topMenuEl.append(newEl);
-})
+for (link of menuLinks) {
+  const a = document.createElement("a") //Create an <a> element.
+  a.setAttribute("href", link.href) //On the new element, add an href attribute with its value set to the href property of the "link" object.
+  a.textContent = link.text //Set the new element's content to the value of the text property of the "link" object.
+  topMenuEl.append(a) //Append the new element to the topMenuEl element.
+}
 
 // 316.3 ***** part 3
 subMenuEl.style.height = "100%";
