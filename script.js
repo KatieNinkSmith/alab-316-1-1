@@ -33,8 +33,11 @@ const topMenuEl = document.getElementById("top-menu");
 // console.log(topMenuEl);
 // 361.1 *****part 1
 const subMenuEl = document.getElementById("sub-menu");
+console.log(subMenuEl);
+subMenuEl.textContent = subMenuEl.textContent.toUpperCase()
 // // 361.3 *****part 4.1.1
-// const topMenuLinks = topMenuEl.getElementsByTagName("a");
+const subMenuLinks = subMenuEl.getElementsByTagName("a");
+console.log(subMenuLinks);
 // topMenuEl.querySelector('a')
 // topMenuEl.querySelectorAll('a')
 // document.links;
@@ -68,6 +71,7 @@ subMenuEl.style.backgroundColor = "var(--sub-menu-bg)";
 subMenuEl.classList.add("flex-around");
 subMenuEl.style.position = "absolute";
 subMenuEl.style.top = "0";
+// subMenuEl.textContent.toUpperCase();
 
 const topMenuLinks = topMenuEl.querySelectorAll("a");
 
@@ -91,7 +95,7 @@ function clickedOn(evt) {
         const a = document.createElement('a')
         a.setAttribute('href', link.href)
         a.textContent= link.text
-        subMenuEl.appendChild(a)
+        subMenuEl.appendChild(a);
       })
         if ('subLinks' in menuLinks[i]) {
           subMenuEl.style.top = "100%";
@@ -103,16 +107,18 @@ function clickedOn(evt) {
   }
 subMenuEl.addEventListener("click", function (evt) {
   evt.preventDefault();
-  if (!clickedLink.matches("a")) {
+  if (!evt.target.matches("a")) {
     return;
   }
-  console.log(clickedLink);
   subMenuEl.style.top = "0";
   topMenuLinks.forEach((link) => {
     link.classList.remove("active");
   });
+  // evt.target.textContent = evt.target.textContent.toUpperCase
+  // console.log(evt.target.textContent);
+  h1.textContent = `${evt.target.textContent}`
+  h1.textContent = h1.textContent.toUpperCase()
 });
-h1.textContent = `${clickedLink.textContent}`
 }
 // allLinks.forEach(link => link.classList.remove("active"));
 
