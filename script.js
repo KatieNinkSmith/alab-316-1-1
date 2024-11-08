@@ -34,12 +34,11 @@ const topMenuEl = document.getElementById("top-menu");
 // 361.1 *****part 1
 const subMenuEl = document.getElementById("sub-menu");
 // // 361.3 *****part 4.1.1
-const topMenuLinks = topMenuEl.getElementsByTagName("a");
+// const topMenuLinks = topMenuEl.getElementsByTagName("a");
 // topMenuEl.querySelector('a')
 // topMenuEl.querySelectorAll('a')
 // document.links;
 // document.querySelectorAll('#top-menu a');
-console.log(topMenuLinks);
 
 // 361.1 *****part 1
 mainEl.style.backgroundColor = "var(--main-bg)";
@@ -52,7 +51,7 @@ topMenuEl.style.backgroundColor = "var(--top-menu-bg)";
 topMenuEl.classList.add("flex-around");
 
 // 361.3 *****part 4.1.2
-// topMenuEl.addEventListener("click", clickedOn)
+// 
 
 // 316.3 ***** part 3
 subMenuEl.style.height = "100%";
@@ -60,60 +59,41 @@ subMenuEl.style.backgroundColor = "var(--sub-menu-bg)";
 subMenuEl.classList.add("flex-around");
 subMenuEl.style.position = "absolute";
 subMenuEl.style.top = "0";
-
+// const allLinks = topMenuEl.querySelectorAll("a");
+// allLinks.forEach(link => link.classList.remove("active"));
 // 361.3 *****part 4.2.1
-document.addEventListener("DOMContentLoaded", () => {
-  topMenuEl.addEventListener("click", clickedOn);
+// document.addEventListener("DOMContentLoaded", () => {
+  // topMenuEl.addEventListener("click", clickedOn);
 
-  // 361.3 *****part 4.1.2
-  // function clickedOn(evt){
-  //   const clickedLink = evt.target
-  //   console.log(clickedLink, 'pineapple');
-  //   console.log(evt.target.textContent, 'banana');
-  //   if (evt.target.localName !== 'a'){
-  //     evt.preventDefault()
-  //     return
-  //   }
-
-  //   if (clickedLink.classList.contains("has-submenu")) {
-  //     const isActive = clickedLink.classList.contains('active');
-  //     console.log(isActive, 'orange');
-  //     clickedLink.classList.toggle('active');
-  // }
-  // topMenuEl.querySelector('a').forEach(link => {
-  //   const activeLink = clickedOn.classList.contains('active')
-  //   console.log(activeLink, 'apple');
-  //   link.classList.remove('active');
-  // })
-  // }
-  function clickedOn(evt) {
+  const topMenuLinks = topMenuEl.querySelectorAll("a");
+  topMenuEl.addEventListener("click", clickedOn)
+    function clickedOn(evt) {
+    evt.preventDefault();
     const clickedLink = evt.target;
-    console.log(clickedLink);
-
-    if (clickedLink.localName !== "a") {
-      evt.preventDefault();
-      return;
+    if (clickedLink.localName !== "a") return;
+   if(clickedLink.classList.contains('active')){
+      clickedLink.classList.remove("active");
     }
-    const activeLink = clickedLink.classList.contains("active");
-    console.log(activeLink);
-    //       topMenuEl.querySelectorAll('a').forEach(link => {
-    //   link.classList.remove('active');
-    // });
- 
-      if (activeLink === true) { // this isnt doing what i want it to
-       console.log(topMenuEl.classList.remove("active"), 'mango');
-      } else {
-      console.log(clickedLink.classList.toggle("active"), 'pear');
+    else{ // look more at family nodes 
+      for(i=0; i<clickedLink.parentNode.childNodes.length; i++){
+        clickedLink.parentNode.childNodes[i].classList.remove('active');
       }
-
-    if (clickedLink.classList.contains("has-submenu")) {
-      if (activeLink) {
-        subMenuEl.style.top = "0";
-      } else {
-        subMenuEl.style.top = "100%";
+      clickedLink.classList.add('active');
+      for(i=0; i<menuLinks.length; i++){
+        if(menuLinks[i].text === clickedLink.innerHTML){ // innerHTML
+          if('subLinks' in menuLinks[i]){
+            subMenuEl.style.top = "100%";
+          }
+          else {
+            subMenuEl.style.top = "0";
+          }
+        }
       }
-    } 
+    }
+    
   }
+  // allLinks.forEach(link => link.classList.remove("active"));
+
 
   // everything i have read is recommending to change how the toggle of active is set up.
   //   for(i=0; i<topMenuLinks.length; i++){
@@ -142,4 +122,4 @@ document.addEventListener("DOMContentLoaded", () => {
       a.classList.add("has-submenu"); // Mark links with submenus
     }
   }
-});
+// });
